@@ -348,27 +348,9 @@
         if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
       });
     });
-
-    // Mobile menu toggle (basic)
-    // future: add full mobile menu for small screens
-</script>
-   input.addEventListener("keypress", function(e){
-    if(e.key === "Enter"){
-      const msg = input.value.trim();
-      if(!msg) return;
-
-      body.innerHTML += `<div class="user">${msg}</div>`;
-      input.value = "";
-
-      setTimeout(() => {
-        body.innerHTML += `<div class="bot">Thanks 👍 I’ll help you with that.</div>`;
-        body.scrollTop = body.scrollHeight;
-      }, 600);
-    }
-  });
-</script>
 </body>
 </html>
+
 
 
 
