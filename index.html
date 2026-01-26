@@ -149,9 +149,6 @@
 }
 .bot{color:#0f7136; margin-bottom:6px;}
 .user{color:#333; text-align:right; margin-bottom:6px;}
-#smdi-chat {
-  display: flex !important;
-}
 </style>
 </head>
 <body>
@@ -471,8 +468,23 @@
     }
   });
 </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("smdi-chat-btn");
+    const chat = document.getElementById("smdi-chat");
+
+    btn.addEventListener("click", function () {
+      if (chat.style.display === "flex") {
+        chat.style.display = "none";
+      } else {
+        chat.style.display = "flex";
+      }
+    });
+  });
+</script>
 </body>
 </html>
+
 
 
 
