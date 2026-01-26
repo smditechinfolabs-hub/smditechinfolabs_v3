@@ -97,7 +97,6 @@
       .logo{ height:56px }
       h1{ font-size:20px }
     }
-
     /* helpers */
     .muted{color:var(--muted)}
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -114,7 +113,6 @@
   font-weight:600;
   z-index:9999;
 }
-
 #smdi-chat{
   position:fixed;
   bottom:80px;
@@ -149,9 +147,11 @@
   padding:10px;
   width:100%;
 }
-
 .bot{color:#0f7136; margin-bottom:6px;}
 .user{color:#333; text-align:right; margin-bottom:6px;}
+#smdi-chat {
+  display: flex !important;
+}
 </style>
 </head>
 <body>
@@ -473,6 +473,7 @@
 </script>
 </body>
 </html>
+
 
 
 
