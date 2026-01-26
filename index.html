@@ -351,6 +351,50 @@
 
     // Mobile menu toggle (basic)
     // future: add full mobile menu for small screens
+    <!-- ===== SMDI Simple Chatbot ===== -->
+<style>
+#smdi-chat-btn{
+  position:fixed; bottom:20px; right:20px;
+  background:#0f7136; color:#fff;
+  padding:12px 16px; border-radius:50px;
+  cursor:pointer; font-weight:600;
+}
+#smdi-chat{
+  position:fixed; bottom:80px; right:20px;
+  width:300px; background:#fff;
+  border:1px solid #ddd; border-radius:8px;
+  display:none; flex-direction:column;
+  font-family:Arial;
+}
+#smdi-chat header{
+  background:#0f7136; color:#fff;
+  padding:10px; font-weight:600;
+}
+#smdi-chat .body{
+  padding:10px; height:220px;
+  overflow-y:auto; font-size:14px;
+}
+#smdi-chat input{
+  border:none; border-top:1px solid #ddd;
+  padding:10px; width:100%;
+}
+.bot{color:#0f7136; margin-bottom:6px;}
+.user{color:#333; text-align:right; margin-bottom:6px;}
+</style>
+
+<div id="smdi-chat-btn">💬 Chat</div>
+
+<div id="smdi-chat">
+  <header>SMDI Assistant</header>
+  <div class="body" id="chatBody">
+    <div class="bot">
+      Hi 👋 I’m SMDI Assistant.  
+      Ask me about services, pilot, pricing, or support.
+    </div>
+  </div>
+  <input type="text" id="chatInput" placeholder="Type here..." />
+</div>
   </script>
 </body>
+
 </html>
