@@ -101,7 +101,6 @@
     .muted{color:var(--muted)}
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
     @media(max-width:800px){.grid-3{grid-template-columns:1fr}}
-  
   </style>
 </head>
 <body>
@@ -113,7 +112,6 @@
         <h1>SMDI – TechInfoLabs</h1>
         <div class="tag">Modern IT Services with AI Automation</div>
       </div>
-
       <nav>
         <div class="nav-list">
           <div class="nav-item">
@@ -434,17 +432,14 @@
   </div>
   <input id="chatInput" placeholder="Type and press Enter…" />
 </div>
-
 <script>
 const chatBtn = document.getElementById("smdi-chat-btn");
 const chatBox = document.getElementById("smdi-chat");
 const chatInput = document.getElementById("chatInput");
 const chatBody = document.getElementById("chatBody");
-
 chatBtn.addEventListener("click", () => {
   chatBox.classList.toggle("open");
 });
-
 chatInput.addEventListener("keydown", e => {
   if (e.key === "Enter" && chatInput.value.trim()) {
     chatBody.innerHTML += `<div class="user">${chatInput.value}</div>`;
@@ -456,9 +451,9 @@ chatInput.addEventListener("keydown", e => {
   }
 });
 </script>
-<!-- ===== END CHATBOT ===== -->
 </body>
 </html>
+
 
 
 
