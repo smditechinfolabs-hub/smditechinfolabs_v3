@@ -102,7 +102,57 @@
     .muted{color:var(--muted)}
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
     @media(max-width:800px){.grid-3{grid-template-columns:1fr}}
-  </style>
+    #smdi-chat-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#0f7136;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:50px;
+  cursor:pointer;
+  font-weight:600;
+  z-index:9999;
+}
+
+#smdi-chat{
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  width:300px;
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:8px;
+  display:none;
+  flex-direction:column;
+  font-family:Arial;
+  z-index:9999;
+}
+
+#smdi-chat header{
+  background:#0f7136;
+  color:#fff;
+  padding:10px;
+  font-weight:600;
+}
+
+#smdi-chat .body{
+  padding:10px;
+  height:220px;
+  overflow-y:auto;
+  font-size:14px;
+}
+
+#smdi-chat input{
+  border:none;
+  border-top:1px solid #ddd;
+  padding:10px;
+  width:100%;
+}
+
+.bot{color:#0f7136; margin-bottom:6px;}
+.user{color:#333; text-align:right; margin-bottom:6px;}
+</style>
 </head>
 <body>
   <header>
@@ -397,4 +447,5 @@
 </div>
 </body>
 </html>
+
 
