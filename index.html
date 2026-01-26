@@ -160,25 +160,7 @@
   </div>
   <input id="chat-input" placeholder="Type and press Enter…" />
 </div>
-<script>
-const chatBtn=document.getElementById("chat-btn");
-const chatBox=document.getElementById("chat-box");
-const chatInput=document.getElementById("chat-input");
-const chatBody=document.getElementById("chat-body");
-
-chatBtn.onclick=()=>chatBox.classList.toggle("open");
-
-chatInput.addEventListener("keydown",e=>{
-  if(e.key==="Enter" && chatInput.value.trim()){
-    chatBody.innerHTML+=`<div class="user">${chatInput.value}</div>`;
-    chatInput.value="";
-    setTimeout(()=>{
-      chatBody.innerHTML+=`<div class="bot">Got it 👍</div>`;
-      chatBody.scrollTop=chatBody.scrollHeight;
-    },400);
-  }
-});
-</script>
 </body>
 </html>
+
 
