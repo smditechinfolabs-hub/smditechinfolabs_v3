@@ -348,8 +348,107 @@
         if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
       });
     });
+    <!-- ===== SMDI CHATBOT (CLEAN VERSION) ===== -->
+
+<style>
+#smdi-chat-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#0f7136;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:50px;
+  cursor:pointer;
+  font-weight:600;
+  z-index:9999;
+}
+
+#smdi-chat{
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  width:320px;
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:10px;
+  display:none;
+  flex-direction:column;
+  font-family:Arial, sans-serif;
+  z-index:9999;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+#smdi-chat.open{
+  display:flex;
+}
+
+#smdi-chat header{
+  background:#0f7136;
+  color:#fff;
+  padding:10px;
+  font-weight:600;
+  border-radius:10px 10px 0 0;
+}
+
+#smdi-chat .body{
+  padding:10px;
+  height:240px;
+  overflow-y:auto;
+  font-size:14px;
+}
+
+#smdi-chat input{
+  border:none;
+  border-top:1px solid #ddd;
+  padding:10px;
+  width:100%;
+  outline:none;
+}
+
+.bot{color:#0f7136;margin-bottom:6px;}
+.user{color:#333;text-align:right;margin-bottom:6px;}
+</style>
+
+<div id="smdi-chat-btn">💬 Chat</div>
+
+<div id="smdi-chat">
+  <header>SMDI Assistant</header>
+  <div class="body" id="chatBody">
+    <div class="bot">
+      Hi 👋 I’m SMDI Assistant.<br>
+      Ask me about services, pilot, pricing, or support.
+    </div>
+  </div>
+  <input id="chatInput" placeholder="Type and press Enter…" />
+</div>
+
+<script>
+const chatBtn = document.getElementById("smdi-chat-btn");
+const chatBox = document.getElementById("smdi-chat");
+const chatInput = document.getElementById("chatInput");
+const chatBody = document.getElementById("chatBody");
+
+chatBtn.addEventListener("click", () => {
+  chatBox.classList.toggle("open");
+});
+
+chatInput.addEventListener("keydown", e => {
+  if (e.key === "Enter" && chatInput.value.trim()) {
+    chatBody.innerHTML += `<div class="user">${chatInput.value}</div>`;
+    chatInput.value = "";
+    setTimeout(() => {
+      chatBody.innerHTML += `<div class="bot">Thanks 👍 I’ll help you with that.</div>`;
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 400);
+  }
+});
+</script>
+
+<!-- ===== END CHATBOT ===== -->
 </body>
 </html>
+
 
 
 
