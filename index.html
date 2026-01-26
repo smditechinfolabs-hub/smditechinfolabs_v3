@@ -149,6 +149,14 @@
 }
 .bot{color:#0f7136; margin-bottom:6px;}
 .user{color:#333; text-align:right; margin-bottom:6px;}
+    #smdi-chat {
+  display: none;
+}
+
+#smdi-chat.open {
+  display: block;
+}
+
 </style>
 </head>
 <body>
@@ -485,9 +493,17 @@
   <script>
   alert("JS LOADED");
 </script>
+<script>
+  const chatBtn = document.getElementById("smdi-chat-btn");
+  const chatBox = document.getElementById("smdi-chat");
 
+  chatBtn.addEventListener("click", () => {
+    chatBox.classList.toggle("open");
+  });
+</script>
 </body>
 </html>
+
 
 
 
