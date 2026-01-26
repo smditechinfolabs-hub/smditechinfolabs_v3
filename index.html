@@ -445,7 +445,34 @@
   </div>
   <input type="text" id="chatInput" placeholder="Type here..." />
 </div>
+  <script>
+  const btn = document.getElementById("smdi-chat-btn");
+  const chat = document.getElementById("smdi-chat");
+
+  btn.onclick = () => {
+    chat.style.display = chat.style.display === "flex" ? "none" : "flex";
+  };
+
+  const input = document.getElementById("chatInput");
+  const body = document.getElementById("chatBody");
+
+  input.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+      const msg = input.value.trim();
+      if(!msg) return;
+
+      body.innerHTML += `<div class="user">${msg}</div>`;
+      input.value = "";
+
+      setTimeout(() => {
+        body.innerHTML += `<div class="bot">Thanks 👍 I’ll help you with that.</div>`;
+        body.scrollTop = body.scrollHeight;
+      }, 600);
+    }
+  });
+</script>
 </body>
 </html>
+
 
 
