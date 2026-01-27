@@ -104,45 +104,113 @@
    
 .bot{color:#0f7136; margin-bottom:6px;}
 .user{color:#333; text-align:right; margin-bottom:6px;}
+ <style>
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 200vh;
+    }
+
+    /* CHAT BUTTON */
+    #chat-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0f7136;
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 999999;
+    }
+
+    /* CHAT BOX */
+    #chat-box {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 320px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      z-index: 999999;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    #chat-box.open {
+      display: flex;
+    }
+
+    #chat-box header {
+      background: #0f7136;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+    }
+
+    #chat-body {
+      padding: 10px;
+      height: 220px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+
+    #chat-input {
+      border: none;
+      border-top: 1px solid #ddd;
+      padding: 10px;
+      width: 100%;
+      outline: none;
+    }
+
+    .bot { color: #0f7136; margin-bottom: 6px; }
+    .user { text-align: right; margin-bottom: 6px; }
+    #chat-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#0f7136;
+  color:#fff;
+  padding:14px 18px;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:bold;
+  z-index:999999;
+}
+
+#chat-box{
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  width:320px;
+  background:#fff;
+  border:1px solid #ccc;
+  border-radius:10px;
+  display:none;
+  flex-direction:column;
+  z-index:999999;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+#chat-box.open{ display:flex; }
+#chat-box header{
+  background:#0f7136;
+  color:#fff;
+  padding:10px;
+  font-weight:bold;
+  border-radius:10px 10px 0 0;
+}
+#chat-body{ padding:10px; height:220px; overflow-y:auto; }
+#chat-input{ border:none; border-top:1px solid #ddd; padding:10px; width:100%; }
+.user{text-align:right}
+.bot{color:#0f7136}
+</style>
 </style>
 </head>
-<body>
-  <!-- CHAT BUTTON -->
-  <div id="chat-btn">💬 Chat</div>
-
-  <!-- CHAT BOX -->
-  <div id="chat-box">
-    <header>SMDI Assistant</header>
-    <div id="chat-body">
-      <div class="bot">Hi 👋 Ask me about our services.</div>
-    </div>
-    <input id="chat-input" placeholder="Type and press Enter…" />
-  </div>
-
-  <!-- CHAT SCRIPT -->
-  <script>
-    const chatBtn = document.getElementById("chat-btn");
-    const chatBox = document.getElementById("chat-box");
-    const chatInput = document.getElementById("chat-input");
-    const chatBody = document.getElementById("chat-body");
-
-    chatBtn.onclick = () => {
-      chatBox.classList.toggle("open");
-    };
-
-    chatInput.addEventListener("keydown", e => {
-      if (e.key === "Enter" && chatInput.value.trim()) {
-        chatBody.innerHTML += `<div class="user">${chatInput.value}</div>`;
-        chatInput.value = "";
-
-        setTimeout(() => {
-          chatBody.innerHTML += `<div class="bot">Got it 👍</div>`;
-          chatBody.scrollTop = chatBody.scrollHeight;
-        }, 400);
-      }
-    });
-  </script>
-  
+<body>  
 <div style="background:yellow;padding:20px;font-weight:bold;">
   PAGE CONTENT TEST – IF YOU SEE THIS, HTML IS FINE
 </div>
@@ -207,7 +275,6 @@
       </nav>
     </div>
   </header>
-
   <main class="wrap">
     <section class="hero">
       <div>
@@ -370,7 +437,6 @@
       </div>
     </footer>
   </main>
-
   <script>
     // Simple reveal on scroll
     const revealEls = document.querySelectorAll('.reveal');
@@ -392,11 +458,40 @@
     // Mobile menu toggle (basic)
     // future: add full mobile menu for small screens
 </script>
-</script>
+  <!-- CHAT BUTTON -->
+  <div id="chat-btn">💬 Chat</div>
+  <!-- CHAT BOX -->
+  <div id="chat-box">
+    <header>SMDI Assistant</header>
+    <div id="chat-body">
+      <div class="bot">Hi 👋 Ask me about our services.</div>
+    </div>
+    <input id="chat-input" placeholder="Type and press Enter…" />
+  </div>
+  <!-- CHAT SCRIPT -->
+  <script>
+    const chatBtn = document.getElementById("chat-btn");
+    const chatBox = document.getElementById("chat-box");
+    const chatInput = document.getElementById("chat-input");
+    const chatBody = document.getElementById("chat-body");
+
+    chatBtn.onclick = () => {
+      chatBox.classList.toggle("open");
+    };
+
+    chatInput.addEventListener("keydown", e => {
+      if (e.key === "Enter" && chatInput.value.trim()) {
+        chatBody.innerHTML += `<div class="user">${chatInput.value}</div>`;
+        chatInput.value = "";
+
+        setTimeout(() => {
+          chatBody.innerHTML += `<div class="bot">Got it 👍</div>`;
+          chatBody.scrollTop = chatBody.scrollHeight;
+        }, 400);
+      }
+    });
+  </script>
 </body>
 </html>
-
-
-
 
 
