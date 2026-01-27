@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SMDI – TechInfoLabs | Modern IT Services with AI Automation</title>
+  <meta name="description" content="SMDI – TechInfoLabs: AI-driven Intune, AVD and endpoint automation for SMBs. Autopilot, patching, compliance, AVD health and L1/L2 AI bot." />
+  <link rel="icon" href="logo.png" />
+
+  <style>
+    :root{
+      --brand:#0f7136; --accent:#0b5b2d; --muted:#556068; --bg:#ffffff; --card:#f6faf6; --radius:12px;
+      --glass: rgba(15,113,54,0.06);
+      --ease: cubic-bezier(.2,.9,.3,1);
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+      color:#0b1720;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1200px;margin:0 auto;padding:8px 16px}
+
+    /* header */
+    header{
+      position:sticky;
+      top:0;
+      background:rgba(255,255,255,0.98);
+      backdrop-filter:blur(6px);
+      z-index:120;
+      border-bottom:1px solid #eef6ef;
+    }
+    .hdr-inner{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      padding:8px 12px;
+    }
+
+    /* LOGO - large, crisp */
+    .logo{
+      display:block;
+      width:auto;
+      height:110px;            /* Desktop visible height */
+      max-height:140px;
+      object-fit:contain;
+      image-rendering:-webkit-optimize-contrast;
+      margin-right:12px;
+    }
+
+    /* heading */
+    .brand-wrap{display:flex;flex-direction:column;gap:4px}
+    h1{margin:0;font-size:28px;color:var(--brand);line-height:1}
+    .tag{color:var(--muted);font-size:14px;margin-top:2px}
+
+    /* nav / mega menu */
+    nav{margin-left:auto}
+    .nav-list{display:flex;gap:10px;align-items:center}
+    .nav-item{position:relative}
+    .nav-btn{padding:8px 12px;border-radius:8px;font-weight:700;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+    .nav-btn:hover{color:var(--brand);background:transparent}
+
+    .mega{position:absolute;left:0;top:calc(100% + 10px);min-width:760px;background:#fff;border-radius:12px;padding:18px;box-shadow:0 20px 40px rgba(16,60,30,0.08);opacity:0;transform:translateY(8px) scale(.98);pointer-events:none;transition:all .22s var(--ease)}
+    .nav-item:hover .mega{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+    .mega-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+    .mega-section h4{margin:0 0 8px;color:var(--accent)}
+    .mega-section a{display:block;padding:6px 0;color:#2a3b36}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:26px;align-items:start;padding:18px 0}
+    .badge{display:inline-block;background:#eaf7ee;color:var(--brand);padding:6px 12px;border-radius:999px;font-weight:700}
+    .hero h2{font-size:34px;margin:12px 0 8px;line-height:1.02}
+    .hero p{color:var(--muted);font-size:16px}
+    .cta{display:inline-block;background:var(--brand);color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:800}
+    .ghost{margin-left:12px;color:var(--muted);font-weight:700}
+
+    .services{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .service{background:#fff;border:1px solid #eef6ef;padding:18px;border-radius:12px}
+    .side{background:linear-gradient(180deg,#f8fbf8, #ffffff);padding:20px;border-radius:12px;box-shadow:0 12px 30px rgba(11,87,45,0.04)}
+
+    .reveal{opacity:0;transform:translateY(12px);transition:all .6s var(--ease)}
+    .reveal.show{opacity:1;transform:none}
+
+    footer{margin-top:36px;color:var(--muted);font-size:13px;padding-bottom:40px}
+
+    /* responsive */
+    @media(max-width:1100px){
+      .hero{grid-template-columns:1fr 320px}
+      .logo{ height:92px }
+      h1{ font-size:24px }
+    }
+    @media(max-width:900px){
+      .wrap{padding:8px}
+      .hero{grid-template-columns:1fr}
+      .nav-list{display:none}
+      .mobile-menu{display:flex;margin-left:auto}
+      .mega{position:static;transform:none;opacity:1;padding:12px;border-radius:8px;margin-top:8px}
+      .logo{ height:56px }
+      h1{ font-size:20px }
+    }
+    /* helpers */
+    .muted{color:var(--muted)}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media(max-width:800px){.grid-3{grid-template-columns:1fr}}
+   
+.bot{color:#0f7136; margin-bottom:6px;}
+.user{color:#333; text-align:right; margin-bottom:6px;}
+</style>
+</head>
+<body>
+  <!-- CHAT BUTTON -->
+  <div id="chat-btn">💬 Chat</div>
+
+  <!-- CHAT BOX -->
+  <div id="chat-box">
+    <header>SMDI Assistant</header>
+    <div id="chat-body">
+      <div class="bot">Hi 👋 Ask me about our services.</div>
+    </div>
+    <input id="chat-input" placeholder="Type and press Enter…" />
+  </div>
+
+  <!-- CHAT SCRIPT -->
+  <script>
+    const chatBtn = document.getElementById("chat-btn");
+    const chatBox = document.getElementById("chat-box");
+    const chatInput = document.getElementById("chat-input");
+    const chatBody = document.getElementById("chat-body");
+
+    chatBtn.onclick = () => {
+      chatBox.classList.toggle("open");
+    };
+
+    chatInput.addEventListener("keydown", e => {
+      if (e.key === "Enter" && chatInput.value.trim()) {
+        chatBody.innerHTML += `<div class="user">${chatInput.value}</div>`;
+        chatInput.value = "";
+
+        setTimeout(() => {
+          chatBody.innerHTML += `<div class="bot">Got it 👍</div>`;
+          chatBody.scrollTop = chatBody.scrollHeight;
+        }, 400);
+      }
+    });
+  </script>
+  
+<div style="background:yellow;padding:20px;font-weight:bold;">
+  PAGE CONTENT TEST – IF YOU SEE THIS, HTML IS FINE
+</div>
+  <header>
+    <div class="wrap hdr-inner">
+      <!-- NOTE: use both files logo.png and logo@2x.png (2x for HD) -->
+      <img src="logo.png" srcset="logo@2x.png 2x" alt="SMDI TechInfoLabs" class="logo" />
+      <div class="brand-wrap">
+        <h1>SMDI – TechInfoLabs</h1>
+        <div class="tag">Modern IT Services with AI Automation</div>
+      </div>
+
+      <nav>
+        <div class="nav-list">
+          <div class="nav-item">
+            <div class="nav-btn">Services ▾</div>
+            <div class="mega">
+              <div class="mega-grid">
+                <div class="mega-section">
+                  <h4>Endpoint Automation</h4>
+                  <a href="#autopilot">Autopilot & Onboarding</a>
+                  <a href="#win32">Win32 App Packaging</a>
+                  <a href="#patch">Patch & Compliance</a>
+                </div>
+                <div class="mega-section">
+                  <h4>AI + Operations</h4>
+                  <a href="#ai-l1">AI L1 Helpdesk</a>
+                  <a href="#rca">RCA & Log Automation</a>
+                  <a href="#runbooks">Automation Runbooks</a>
+                </div>
+                <div class="mega-section">
+                  <h4>Cloud Workspace</h4>
+                  <a href="#avd">AVD Health & Scale</a>
+                  <a href="#fslogix">FSLogix Automation</a>
+                  <a href="#cost">Cost Optimization</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <div class="nav-btn">Company ▾</div>
+            <div class="mega" style="min-width:360px">
+              <div class="mega-grid" style="grid-template-columns:1fr">
+                <div class="mega-section">
+                  <h4>About</h4>
+                  <a href="#why">Why SMDI</a>
+                  <a href="#how">How we work</a>
+                  <a href="#pilot">Pilot & Pricing</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-btn" href="#contact">Contact</a>
+          <a class="nav-btn" href="#privacy">Privacy</a>
+        </div>
+
+        <div class="mobile-menu" style="display:none">
+          <button aria-label="menu">Menu</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <span class="badge">AI • Intune • AVD</span>
+        <h2 class="reveal" id="heroTitle">Reduce support cost with automation — AI-first endpoint operations for SMBs</h2>
+        <p class="muted reveal" style="transition-delay:.05s">We build automated Intune + AVD operations that fix issues, remediate compliance, and manage patching — removing repetitive work and accelerating IT outcomes.</p>
+
+        <div style="margin-top:18px" class="reveal" id="ctaRow">
+          <a class="cta" href="#pilot">Request Pilot</a>
+          <a class="ghost" href="#contact">Talk to Sales</a>
+        </div>
+
+        <div id="servicesShort" style="margin-top:26px" class="reveal">
+          <h3>Core Services</h3>
+          <div class="services">
+            <div class="service" id="autopilot">
+              <h3>Autopilot & Device Onboarding</h3>
+              <p class="muted">Zero-touch provisioning, ESP health automation, branding and secure enrollment flows.</p>
+            </div>
+            <div class="service" id="ai-l1">
+              <h3>AI L1 Helpdesk</h3>
+              <p class="muted">Chatbot + automation runbooks for password resets, Teams & Office fixes, app reinstall and device sync.</p>
+            </div>
+            <div class="service" id="patch">
+              <h3>Patch & Compliance Automation</h3>
+              <p class="muted">Pre-checks, auto-repair for patch failures, compliance healing, and scheduled remediation.</p>
+            </div>
+            <div class="service" id="avd">
+              <h3>AVD Health & Scaling</h3>
+              <p class="muted">FSLogix repair, session health recovery and cost optimization.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side reveal" style="transition-delay:.08s">
+        <h3>Pilot Snapshot</h3>
+        <p class="muted">14-day pilot • 10–25 devices • Automation + AI helpdesk • ROI report</p>
+        <ul style="padding-left:18px;margin-top:8px;color:var(--muted)">
+          <li>Average auto-resolution: 70%</li>
+          <li>Pilot speed: 14 days</li>
+          <li>Billing: Subscription or fixed project</li>
+        </ul>
+        <div style="margin-top:14px">
+          <a class="cta" href="#contact">Start Pilot</a>
+        </div>
+      </aside>
+    </section>
+    <section id="how">
+      <h2>How we work</h2>
+      <div class="two" style="margin-top:12px">
+        <div>
+          <h3>1. Quick Pilot</h3>
+          <p class="muted">We run a 14-day pilot on a subset of devices to prove value — automated L1 bot + one auto-heal playbook.</p>
+
+          <h3>2. Automate & Secure</h3>
+          <p class="muted">Runbooks with Key Vault-based secrets, approval gating and audit logs before any auto-action.</p>
+
+          <h3>3. Scale</h3>
+          <p class="muted">Extend automation, integrate AVD health, deliver monthly RCA & optimization reports.</p>
+        </div>
+        <div>
+          <h3>Deliverables</h3>
+          <ul style="padding-left:18px">
+            <li>Pilot report with ROI</li>
+            <li>Automation playbook library</li>
+            <li>Monthly RCA & health reports</li>
+            <li>On-call L3 support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="pilot">
+      <h2>Pilot & Pricing</h2>
+      <div class="grid-3" style="margin-top:12px">
+        <div class="card">
+          <h3>Pilot (14 days)</h3>
+          <p class="muted">Proof-of-value pilot for 10–25 devices. We deploy L1 bot, 3 auto-heal runbooks and deliver a pilot report.</p>
+          <p style="margin-top:8px;font-weight:700">From ₹20,000</p>
+        </div>
+        <div class="card">
+          <h3>Managed Subscription</h3>
+          <p class="muted">Per-device subscription includes automation, monitoring and monthly reports. SLA options available.</p>
+          <p style="margin-top:8px;font-weight:700">From ₹150 /device/mo</p>
+        </div>
+        <div class="card">
+          <h3>Project</h3>
+          <p class="muted">Migration, Autopilot mass enrollment, AVD setup and custom automation projects.</p>
+          <p style="margin-top:8px;font-weight:700">From ₹40,000</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="why" style="margin-top:22px">
+      <h2>Why SMDI – TechInfoLabs</h2>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:12px">
+        <div class="card" style="flex:1;min-width:220px">
+          <h3>Automation-first</h3>
+          <p class="muted">We ship automation playbooks first; humans step in only for escalation.</p>
+        </div>
+        <div class="card" style="flex:1;min-width:220px">
+          <h3>Deep endpoint experience</h3>
+          <p class="muted">15+ years in SCCM/OSD deployments—complex scenarios are our strength.</p>
+        </div>
+        <div class="card" style="flex:1;min-width:220px">
+          <h3>Secure by design</h3>
+          <p class="muted">Key Vault, approval gating, redaction and audit logs are standard in every deployment.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:24px">
+      <h2>Contact</h2>
+      <div class="two">
+        <div>
+          <p class="muted"><strong>Email:</strong> <a href="mailto:smditechinfo@gmail.com">smditechinfo@gmail.com</a></p>
+          <p class="muted"><strong>Phone:</strong> +91 XXXXXX</p>
+          <p class="muted"><strong>Location:</strong> Remote / India</p>
+          <p class="muted">We typically respond within 24 hours. For pilots, please specify number of devices and primary objectives.</p>
+        </div>
+        <div>
+          <form class="contact-form" onsubmit="event.preventDefault();alert('Contact submitted. Please email smditechinfo@gmail.com for follow-up.');">
+            <label class="muted">Your name</label>
+            <input required placeholder="Your full name">
+            <label class="muted">Company</label>
+            <input placeholder="Company (optional)">
+            <label class="muted">Message</label>
+            <textarea rows="4" placeholder="Brief: devices, objective"></textarea>
+            <button>Send Request</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy" style="margin-top:22px">
+      <h2>Privacy & Security</h2>
+      <div class="card" style="margin-top:10px">
+        <h3>Summary</h3>
+        <ul style="padding-left:18px;color:var(--muted)">
+          <li>We collect device telemetry and contact information required for service delivery.</li>
+          <li>We redact personal data before sending to third-party services.</li>
+          <li>Secrets are secured in Azure Key Vault.</li>
+          <li>Audit logs are retained per agreement.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="terms" style="margin-top:18px">
+      <h2>Terms & Conditions</h2>
+      <div class="card" style="margin-top:10px">
+        <p class="muted">Services are delivered per SOW. Pilots are 14 days. Subscription and project pricing as discussed. Confidentiality and data handling per agreement.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:24px">
+        <div class="muted">© SMDI – TechInfoLabs. Modern IT Services with AI Automation.</div>
+        <div class="muted">Privacy • Terms • Contact</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Simple reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); obs.unobserve(e.target); } });
+    },{threshold:0.12});
+    revealEls.forEach(el=>obs.observe(el));
+
+    // Smooth anchor navigation
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const href=a.getAttribute('href');
+        if(href==='#') return; e.preventDefault();
+        const el=document.querySelector(href);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    // Mobile menu toggle (basic)
+    // future: add full mobile menu for small screens
+</script>
+</script>
+</body>
+</html>
+
+
+
+
+
