@@ -111,107 +111,95 @@
     }
 
     /* CHAT BUTTON */
-    #chat-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #0f7136;
-      color: #fff;
-      padding: 14px 18px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      z-index: 999999;
-    }
+<style>
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background:#fff;
+  color:#0b1720;
+}
 
-    /* CHAT BOX */
-    #chat-box {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      width: 320px;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      display: none;
-      flex-direction: column;
-      z-index: 999999;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-
-    #chat-box.open {
-      display: flex;
-    }
-
-    #chat-box header {
-      background: #0f7136;
-      color: white;
-      padding: 10px;
-      font-weight: bold;
-      border-radius: 10px 10px 0 0;
-    }
-
-    #chat-body {
-      padding: 10px;
-      height: 220px;
-      overflow-y: auto;
-      font-size: 14px;
-    }
-
-    #chat-input {
-      border: none;
-      border-top: 1px solid #ddd;
-      padding: 10px;
-      width: 100%;
-      outline: none;
-    }
-
-    .bot { color: #0f7136; margin-bottom: 6px; }
-    .user { text-align: right; margin-bottom: 6px; }
-    #chat-btn{
+/* ===== CHAT BUTTON ===== */
+#chat-btn{
   position:fixed;
   bottom:20px;
   right:20px;
   background:#0f7136;
   color:#fff;
-  padding:14px 18px;
+  padding:14px 20px;
   border-radius:30px;
   cursor:pointer;
-  font-weight:bold;
+  font-weight:600;
   z-index:999999;
 }
 
+/* ===== CHAT BOX ===== */
 #chat-box{
   position:fixed;
   bottom:80px;
   right:20px;
-  width:320px;
+  width:340px;
   background:#fff;
-  border:1px solid #ccc;
-  border-radius:10px;
+  border:1px solid #ddd;
+  border-radius:14px;
   display:none;
   flex-direction:column;
   z-index:999999;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
-#chat-box.open{ display:flex; }
-#chat-box header{
+#chat-box.open{display:flex}
+
+#chat-header{
   background:#0f7136;
   color:#fff;
-  padding:10px;
-  font-weight:bold;
-  border-radius:10px 10px 0 0;
+  padding:12px;
+  font-weight:700;
+  border-radius:14px 14px 0 0;
 }
-#chat-body{ padding:10px; height:220px; overflow-y:auto; }
-#chat-input{ border:none; border-top:1px solid #ddd; padding:10px; width:100%; }
-.user{text-align:right}
-.bot{color:#0f7136}
+
+#chat-body{
+  padding:12px;
+  height:260px;
+  overflow-y:auto;
+  font-size:14px;
+}
+
+#chat-input{
+  border:none;
+  border-top:1px solid #ddd;
+  padding:12px;
+  outline:none;
+}
+
+.bot{color:#0f7136;margin-bottom:10px}
+.user{text-align:right;margin-bottom:10px;color:#333}
+
+.quick{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:8px;
+}
+
+.quick button{
+  border:1px solid #0f7136;
+  background:#eef6ef;
+  color:#0f7136;
+  padding:6px 12px;
+  border-radius:18px;
+  cursor:pointer;
+  font-size:13px;
+}
+.quick button:hover{
+  background:#0f7136;
+  color:#fff;
+}
 </style>
 </style>
 </head>
 <body>  
-< <header>
+<header>
     <div class="wrap hdr-inner">
       <!-- NOTE: use both files logo.png and logo@2x.png (2x for HD) -->
       <img src="logo.png" srcset="logo@2x.png 2x" alt="SMDI TechInfoLabs" class="logo" />
@@ -455,40 +443,134 @@
     // Mobile menu toggle (basic)
     // future: add full mobile menu for small screens
 </script>
-  <!-- CHAT BUTTON -->
-  <div id="chat-btn">💬 Chat</div>
-  <!-- CHAT BOX -->
-  <div id="chat-box">
-    <header>SMDI Assistant</header>
-    <div id="chat-body">
-      <div class="bot">Hi 👋 Ask me about our services.</div>
-    </div>
-    <input id="chat-input" placeholder="Type and press Enter…" />
-  </div>
-  <!-- CHAT SCRIPT -->
-  <script>
-    const chatBtn = document.getElementById("chat-btn");
-    const chatBox = document.getElementById("chat-box");
-    const chatInput = document.getElementById("chat-input");
-    const chatBody = document.getElementById("chat-body");
+<!-- ===== CHATBOT UI ===== -->
+<div id="chat-btn">💬 Chat</div>
 
-    chatBtn.onclick = () => {
-      chatBox.classList.toggle("open");
-    };
+<div id="chat-box">
+  <div id="chat-header">SMDI Assistant</div>
+  <div id="chat-body"></div>
+  <input id="chat-input" placeholder="Type and press Enter…">
+</div>
 
-    chatInput.addEventListener("keydown", e => {
-      if (e.key === "Enter" && chatInput.value.trim()) {
-        chatBody.innerHTML += `<div class="user">${chatInput.value}</div>`;
-        chatInput.value = "";
+<!-- ===== CHATBOT SCRIPT ===== -->
+<script>
+const chatBtn = document.getElementById("chat-btn");
+const chatBox = document.getElementById("chat-box");
+const chatBody = document.getElementById("chat-body");
+const chatInput = document.getElementById("chat-input");
 
-        setTimeout(() => {
-          chatBody.innerHTML += `<div class="bot">Got it 👍</div>`;
-          chatBody.scrollTop = chatBody.scrollHeight;
-        }, 400);
-      }
-    });
-  </script>
+let greeted = false;
+
+/* Toggle + reset */
+chatBtn.onclick = () => {
+  if (chatBox.classList.contains("open")) {
+    chatBox.classList.remove("open");
+    chatBody.innerHTML = "";
+    greeted = false;
+    return;
+  }
+  chatBox.classList.add("open");
+  showGreeting();
+  greeted = true;
+};
+
+function bot(msg){
+  chatBody.innerHTML += `<div class="bot">${msg}</div>`;
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function user(msg){
+  chatBody.innerHTML += `<div class="user">${msg}</div>`;
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function clearMenu(){
+  document.querySelectorAll(".quick").forEach(q => q.remove());
+}
+
+function showGreeting(){
+  bot(`Hi 👋 I’m <b>SMDI Assistant</b>.<br>How can I help you today?`);
+  showMenu();
+}
+
+function showMenu(){
+  clearMenu();
+  const menu = document.createElement("div");
+  menu.className = "quick";
+  menu.innerHTML = `
+    <button onclick="services()">Services</button>
+    <button onclick="pilot()">Pilot</button>
+    <button onclick="pricing()">Pricing</button>
+    <button onclick="security()">Security</button>
+    <button onclick="contact()">Contact</button>
+  `;
+  chatBody.appendChild(menu);
+}
+
+function back(){
+  showMenu();
+}
+
+function services(){
+  clearMenu();
+  bot(`<b>🛠 Services</b><br>
+  • Intune Autopilot<br>
+  • Patch & compliance automation<br>
+  • AI L1 Helpdesk<br>
+  • AVD health & scaling`);
+  showBack();
+}
+
+function pilot(){
+  clearMenu();
+  bot(`<b>🚀 14-Day Pilot</b><br>
+  • 10–25 devices<br>
+  • AI bot + automation<br>
+  • ROI report`);
+  showBack();
+}
+
+function pricing(){
+  clearMenu();
+  bot(`<b>💰 Pricing</b><br>
+  • Pilot: ₹20,000+<br>
+  • Subscription: ₹150/device<br>
+  • Projects: ₹40,000+`);
+  showBack();
+}
+
+function security(){
+  clearMenu();
+  bot(`<b>🔐 Security-First Design</b><br>
+  • Azure Key Vault<br>
+  • Approval gating<br>
+  • Audit logs`);
+  showBack();
+}
+
+function contact(){
+  clearMenu();
+  bot(`<b>📩 Contact</b><br>
+  smditechinfo@gmail.com<br>
+  Please email device count & requirement.`);
+  showBack();
+}
+
+function showBack(){
+  const backBtn = document.createElement("div");
+  backBtn.className = "quick";
+  backBtn.innerHTML = `<button onclick="back()">⬅ Back to Menu</button>`;
+  chatBody.appendChild(backBtn);
+}
+
+chatInput.addEventListener("keydown", e => {
+  if(e.key === "Enter" && chatInput.value.trim()){
+    user(chatInput.value.trim());
+    chatInput.value = "";
+    bot(`❗ That question isn’t in the list.<br>Please use the menu or contact us.`);
+    showBack();
+  }
+});
+</script>
 </body>
 </html>
-
-
