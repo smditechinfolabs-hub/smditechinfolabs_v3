@@ -382,20 +382,65 @@ body{
           <p class="muted">We typically respond within 24 hours. For pilots, please specify number of devices and primary objectives.</p>
         </div>
         <div>
-          <form class="contact-form" onsubmit="event.preventDefault();alert('Contact submitted. Please email smditechinfo@gmail.com for follow-up.');">
-            <label class="muted">Your name</label>
-            <input required placeholder="Your full name">
-            <label class="muted">Company</label>
-            <input placeholder="Company (optional)">
-            <label class="muted">Message</label>
-            <textarea rows="4" placeholder="Brief: devices, objective"></textarea>
-            <button>Send Request</button>
-          </form>
-        </div>
-      </div>
-    </section>
+  <form class="contact-form" onsubmit="sendContactEmail(event)">
+    <label class="muted">Your name</label>
+    <input id="cf-name" required placeholder="Your full name">
 
-    <section id="privacy" style="margin-top:22px">
+    <label class="muted">Company</label>
+    <input id="cf-company" placeholder="Company (optional)">
+
+    <label class="muted">Message</label>
+    <textarea id="cf-message" rows="4" placeholder="Brief: devices, objective"></textarea>
+
+    <button type="submit">Send Request</button>
+  </form>
+
+  <!-- Success message -->
+  <p id="contact-success" class="muted" style="display:none;margin-top:10px;">
+    ✅ Thank you. Your email client has opened with the details prefilled.
+  </p>
+</div>
+
+<script>
+function sendContactEmail(event){
+  event.preventDefault();
+
+  const name = document.getElementById("cf-name").value.trim();
+  const company = document.getElementById("cf-company").value.trim();
+  const message = document.getElementById("cf-message").value.trim();
+
+  if (!name || !message) {
+    alert("Please enter your name and message.");
+    return;
+  }
+
+  const subject = "New enquiry from SMDI website";
+
+  const bodyLines = [
+    "Name: " + name,
+    "Company: " + (company || "N/A"),
+    "",
+    "Requirement:",
+    message,
+    "",
+    "---",
+    "Sent from smditechinfolabs.com"
+  ];
+
+  const body = encodeURIComponent(bodyLines.join("\r\n"));
+
+  window.location.href =
+    "mailto:smditechinfo@gmail.com"
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body=" + body;
+
+  document.getElementById("contact-success").style.display = "block";
+  event.target.reset();
+}
+</script>
+</div>
+</section>
+<section id="privacy" style="margin-top:22px">
       <h2>Privacy & Security</h2>
       <div class="card" style="margin-top:10px">
         <h3>Summary</h3>
@@ -571,6 +616,19 @@ chatInput.addEventListener("keydown", e => {
     showBack();
   }
 });
+</script>
+  <script>
+setTimeout(() => {
+  // Open chatbot only if user hasn't opened it yet
+  if (!chatBox.classList.contains("open")) {
+    chatBox.classList.add("open");
+
+    // Fresh greeting every auto-open
+    chatBody.innerHTML = "";
+    greeted = false;
+    showGreeting();
+  }
+}, 15000);
 </script>
 </body>
 </html>
